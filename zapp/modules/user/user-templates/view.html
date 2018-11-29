@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{{ super() }}
+
+{% block title %}Pregled prijave{% endblock %}
+{% block titleheader %}Pregled prijave{% endblock %}
+{% block username %}{{ username }}{% endblock %}
+
+{% block dataMD12 %}
+    {% if app != None %}
+        {% if haspermission %}
+            <a class="btn btn-primary" href="/user/applications/edit?id={{ app['_id'] }}">Uredi prijavu</a>
+            <div class="table-responsive">
+                <table class="table table-hover" cellpadding="10px" width="100%">
+
+                    <tr>
+                        <td>Ime i prezime</td>
+                        <td>{{ app['applicant'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Naslov rada</td>
+                        <td>{{ app['pub-title'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tip</td>
+                        <td>{{ app['type'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Ocijenjeno</td>
+                        <td>{{ app['is-graded'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Dodijenjeno</td>
+                        <td>{{ app['assigned-to'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{ app['aai-email'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Poslano</td>
+                        <td>{{ app['input-timestamp'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Zadnja izmjena</td>
+                        <td>{{ app['edit-timestamp'] }}</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        {% else %}
+            <h5> Nemate ovlasti za ovu radnju.</h5>
+        {% endif %}
+
+    {% else %}
+        <h5> Ova prijava nije pronađena.</h5>
+    {% endif %}
+
+
+{% endblock %}

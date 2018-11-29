@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title> {% block title %}{% endblock %}</title>
+
+    <meta name="author" content="Ivan Caleta-Car">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" href="/admin">Znanstveni</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/dashboard">Početna</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/applications">Prijave</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/moderators">Evaluatori</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/assign">Dodijela prijava</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/rang-list">Rang lista</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav" id="right-side-nav">
+            <li class="nav-item" style="color: white;">
+                <span>{% block username %}{% endblock %}</span>
+
+            </li>
+            <li class="nav-item">
+                <a href="/logout" class="btn-sm btn-primary">Odjava</a>
+
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!---------------------------------------------------------------------------uredi odavde------------------------------->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1>
+                    {% block titleheader %}{% endblock %}
+                </h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            {% block filtering %}
+            {% endblock %}
+        </div>
+    </div>
+
+    {% block rowSpace1 %}
+    {% endblock %}
+
+    {% block rowSpace2 %}
+    {% endblock %}
+
+    {% block rowSpace3 %}
+    {% endblock %}
+
+    {% block rowSpace4 %}
+    {% endblock %}
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+<!-----------------------------------------
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+-------------------------------------------->
+</body>
+
+</html>

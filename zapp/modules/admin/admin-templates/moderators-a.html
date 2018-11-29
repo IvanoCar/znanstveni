@@ -1,0 +1,56 @@
+{% extends "layout-a.html" %}
+{{ super() }}
+
+{% block title %}Evaluatori{% endblock %}
+{% block titleheader %}Evaluatori{% endblock %}
+{% block username %}{{ username }}{% endblock %}
+
+
+{% block rowSpace1 %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <a href="/admin/moderators/add" class="btn btn-primary">Dodaj novi</a>
+            {% if moderators|length > 0 %}
+                <a href="/admin/moderators/password-reset" class="btn btn-primary">Promijeni lozinke</a>
+            {% endif %}
+            <div class="table-responsive">
+                <table class="table table-hover" cellpadding="10px" width="100%" style="margin-top: 15px;">
+                    <thead>
+                    <tr>
+                        <th>Korisničko ime</th>
+                        <th>Lozinka</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if moderators|length == 0 %}
+                        <tr>
+                            <td align="center" colspan="2">Nema računa</td>
+                        </tr>
+
+                    {% else %}
+                        {% for moderator in moderators %}
+                            <tr>
+                                <td>{{ moderator['username'] }}</td>
+                                <td>{{ moderator['password'] }}</td>
+
+                                <td><a href="" class="btn-sm btn-primary" onclick="copy(copy{{ moderator['_id'] }})">Kopiraj</a>
+                                    <div id="copy{{ moderator['_id'] }}" style="display:none">Korisničko
+                                        ime: {{ moderator['username'] }} Lozinka: {{ moderator['password'] }}</div>
+                                </td>
+                                <td><a class="btn-sm btn-primary"
+                                       href="/admin/moderators/delete?id={{ moderator['_id'] }}">Obriši</a></td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+

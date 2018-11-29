@@ -1,0 +1,55 @@
+{% extends "layout-a.html" %}
+{{ super() }}
+
+{% block title %}Rang lista{% endblock %}
+{% block titleheader %}Rang lista{% endblock %}
+{% block username %}{{ username }}{% endblock %}
+
+
+{% block filtering %}
+    {% if apps|length > 0 %}
+        <a href="/admin/rang-list/pdf" class="btn btn-primary" target="_blank">Preuzmi PDF</a>
+    {% endif %}
+
+{% endblock %}
+
+
+{% block rowSpace1 %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover" cellpadding="10px" width="100%" style="margin-top: 15px;">
+
+                    <thead>
+                    <tr>
+                        <th>RBR</th>
+                        <th>Ime i prezime</th>
+                        <th>Naziv rada</th>
+                        <th>Ocjena</th>
+                    </tr>
+
+                    </thead>
+
+                    {% if apps|length == 0 %}
+                        <tr>
+                            <td align="center" colspan="4">Nema prijava</td>
+                        </tr>
+
+                    {% else %}
+                        {% for app in apps %}
+                            <tr>
+                                <td> {{ loop.index }} </td>
+                                <td>{{ app['applicant'] }}</td>
+                                <td>{{ app['pub-title'] }}</td>
+                                <td><strong>{{ app['grade'] }}</strong></td>
+                            </tr>
+
+                        {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ispis rang liste</title>
+
+</head>
+<body>
+<h1 align="center">Rang lista</h1>
+<table border="1" cellpadding="5px" width="100%" style="margin-top: 15px;">
+
+    <thead>
+    <tr>
+        <th>RBR</th>
+        <th>Ime i prezime</th>
+        <th>Naziv rada</th>
+        <th>Ocjena</th>
+    </tr>
+
+    </thead>
+
+    {% if apps|length == 0 %}
+        <tr>
+            <td align="center" colspan="4">Nema prijava</td>
+        </tr>
+
+    {% else %}
+        {% for app in apps %}
+            <tr>
+                <td> {{ loop.index }} </td>
+                <td>{{ app['applicant'] }}</td>
+                <td>{{ app['pub-title'] }}</td>
+                <td><strong>{{ app['grade'] }}</strong></td>
+            </tr>
+
+        {% endfor %}
+    {% endif %}
+</table>
+</body>
+</html>

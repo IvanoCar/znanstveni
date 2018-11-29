@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{{ super() }}
+
+{% block title %}Uredi prijavu{% endblock %}
+{% block titleheader %}Uredi prijavu{% endblock %}
+{% block username %}{{ username }}{% endblock %}
+{% block dataMD12 %}
+
+    {% if app != None %}
+        {% if haspermission %}
+            <p>Zadnja izmjena: {{ app['edit-timestamp'] }}</p>
+
+            <form action="" method="POST" id="editForm">
+                <ol>
+                    <li> Ime i prezime: <input type="text" name="applicant" value="{{ app['applicant'] }}" required>
+                    </li>
+                    <li> Naslov rada <input type="text" name="pub-title" value="{{ app['pub-title'] }}" required></li>
+
+                    <li> Tip prijave:
+                        <select name="type" required>
+                            {% for option in types %}
+                                {% if option == app['type'] %}
+                                    <option value="{{ option }}" selected>{{ option }}</option>
+                                {% else %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </li>
+                </ol>
+                <input type="submit" value="Spremi">
+
+            </form>
+        {% else %}
+            <h5>Za ovu izmjenu nemate ovlasti.</h5>
+        {% endif %}
+
+    {% else %}
+        <h5> Ova prijava nije pronađena.</h5>
+    {% endif %}
+
+
+{% endblock %}

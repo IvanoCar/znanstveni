@@ -1,0 +1,81 @@
+{% extends "layout-a.html" %}
+{{ super() }}
+
+{% block title %}Dashboard{% endblock %}
+{% block titleheader %}Prijave{% endblock %}
+{% block username %}{{ username }}{% endblock %}
+
+
+{% block rowSpace1 %}
+    <div class="row">
+        <div class="col-md-12">
+            <h4 id="appsTitle">{{ applicationsTitle }}</h4>
+        </div>
+    </div>
+{% endblock %}
+
+{% block filtering %}
+
+    <a href="/admin/applications?criteria=all" class="btn btn-primary">Prikaži sve</a>
+    <a href="/admin/applications?criteria=not-assigned" class="btn btn-primary">Prikaži nedodijeljene</a>
+    <a href="/admin/applications?criteria=not-graded" class="btn btn-primary">Prikaži neocjenjene</a>
+
+    {% if showRandomAssignBtn == True %}
+        <a href="/admin/assign" class="btn btn-warning">Dodijela prijava evaluatorima</a>
+    {% endif %}
+
+{% endblock %}
+
+
+{% block rowSpace2 %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover" cellpadding="10px" width="100%" style="margin-top: 15px;">
+                    <thead>
+                    <tr>
+                        <th>Ocijenjen</th>
+                        <th>Dodijeljen</th>
+                        <th>Naziv rada</th>
+                        <th>Ime i prezime</th>
+                        <th>Datum prijave</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    {% if apps|length == 0 %}
+                        <tr>
+                            <td align="center" colspan="5">Nema prijava</td>
+                        </tr>
+                    {% else %}
+                        {% for app in apps %}
+                            <tr>
+                                <td>{{ app['is-graded'] }}</td>
+                                {% if app['assigned-to'] == '-' %}
+                                    <td>Ne</td>
+                                {% else %}
+                                    <td>Da</td>
+                                {% endif %}
+                                <td>{{ app['pub-title'] }}</td>
+                                <td>{{ app['applicant'] }}</td>
+                                <td>{{ app['input-timestamp'] }}</td>
+                                {% if showGradeButons == True %}
+                                    {% if app['is-graded'] == 'Ne' %}
+                                        <td><a href="/admin/applications/grade?id={{ app['_id'] }}">Ocijeni</a></td>
+                                    {% endif %}
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,44 @@
+{% extends "layout-m.html" %}
+{{ super() }}
+
+{% block title %}Postavke{% endblock %}
+{% block titleheader %}Postavke{% endblock %}
+{% block username %}{{ username }}{% endblock %}
+
+{% block dataMD12 %}
+
+    <div id="questionGrade">
+            <form class="form-horizontal" action="/moderator/settings/grading" method="POST">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>Kako želite ocijenjivati prijave?</legend>
+
+                    <!-- Multiple Radios -->
+                    <div class="form-group">
+                        <div class="radio">
+                            <label for="grading-type-0">
+                                <input type="radio" name="grading-type" id="grading-type-0" value="online"
+                                       checked="checked">
+                                Unutar sustava
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label for="grading-type-1">
+                                <input type="radio" name="grading-type" id="grading-type-1" value="paper">
+                                Uz pomoć formulara
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="form-group">
+                        <input type="submit" name="singlebutton" class="btn btn-primary" value="Spremi">
+                    </div>
+
+                </fieldset>
+            </form>
+
+        </div>
+
+{% endblock %}

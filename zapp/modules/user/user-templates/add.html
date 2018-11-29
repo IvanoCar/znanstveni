@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{{ super() }}
+
+{% block title %}Nova prijava{% endblock %}
+{% block titleheader %}Nova prijava{% endblock %}
+{% block username %}{{ username }}{% endblock %}
+{% block dataMD12 %}
+    <form action="" method="POST" id="addForm">
+
+            <ol>
+                <li> Ime i prezime: <input type="text" name="applicant" required></li>
+                <li> Naslov rada <input type="text" name="pub-title" required></li>
+
+                <li> Tip prijave:
+                    <select name="type" required>
+                        {% for option in types %}
+                                <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </li>
+            </ol>
+
+            <input type="submit" value="Spremi">
+
+    </form>
+
+{% endblock %}
+

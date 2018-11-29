@@ -1,0 +1,106 @@
+{% extends "layout-m.html" %}
+{{ super() }}
+
+{% block title %}Dashboard{% endblock %}
+{% block titleheader %}Prijave{% endblock %}
+{% block username %}{{ username }}{% endblock %}
+
+
+{% block filtering %}
+    {% if gradingform == False %}
+        <a class="btn btn-primary" href="/moderator/applications/filter?criteria=all">Prikaži sve</a>
+        {% if gradingtype == 'online' %}
+            <a class="btn btn-primary" href="/moderator/applications/filter?criteria=not-graded">Prikaži neocjenjene</a>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block question %}
+    {% if gradingform %}
+        <div id="questionGrade">
+            <form class="form-horizontal" action="/moderator/settings/grading" method="POST">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>Kako želite ocijenjivati prijave?</legend>
+
+                    <!-- Multiple Radios -->
+                    <div class="form-group">
+                        <div class="radio">
+                            <label for="grading-type-0">
+                                <input type="radio" name="grading-type" id="grading-type-0" value="online"
+                                       checked="checked">
+                                Unutar sustava
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label for="grading-type-1">
+                                <input type="radio" name="grading-type" id="grading-type-1" value="paper">
+                                Uz pomoć formulara
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="form-group">
+                        <input type="submit" name="singlebutton" class="btn btn-primary" value="Spremi">
+                    </div>
+
+                </fieldset>
+            </form>
+
+        </div>
+
+    {% endif %}
+{% endblock %}
+
+
+
+{% block dataMD12 %}
+    {% if gradingform == False %}
+
+        <div class="table-responsive">
+            <table class="table table-hover" cellpadding="10px" width="100%" style="margin-top: 15px;">
+                <thead>
+                <tr>
+                    {% if gradingtype == 'online' %}
+                        <th>Ocijenjen</th>
+                    {% endif %}
+                    <th>Naziv rada</th>
+                    <th>Ime i prezime</th>
+                    <th>Datum prijave</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                {% if apps|length == 0 %}
+                    <tr>
+                        <td align="center" colspan="4">Nema prijava</td>
+                    </tr>
+
+                {% else %}
+                    {% for app in apps %}
+                        <tr>
+                            {% if gradingtype == 'online' %}
+                                <td>{{ app['is-graded'] }}</td>
+                            {% endif %}
+                            <td>{{ app['pub-title'] }}</td>
+                            <td>{{ app['applicant'] }}</td>
+                            <td>{{ app['input-timestamp'] }}</td>
+                            <td><a href="/moderator/applications/view?id={{ app['_id'] }}">Pogledaj</a></td>
+                            {% if gradingtype == 'online' %}
+                                <td><a href="/moderator/applications/grade?id={{ app['_id'] }}">Ocijeni</a></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+
+            </table>
+        </div>
+
+    {% endif %}
+
+
+{% endblock %}
+

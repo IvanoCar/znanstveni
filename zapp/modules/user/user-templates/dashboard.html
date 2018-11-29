@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{{ super() }}
+
+{% block title %}Dashboard{% endblock %}
+{% block titleheader %}Moje prijave{% endblock %}
+{% block username %}{{ username }}{% endblock %}
+{% block linkh4 %}<a class="btn btn-primary" href="/user/applications/add">Nova prijava</a>{% endblock %}
+
+{% block dataMD12 %}
+    <div class="table-responsive">
+        <table class="table table-hover" cellpadding="10px" width="100%">
+            <thead>
+            <tr>
+                <th>Naziv rada</th>
+                <th>Ime i prezime</th>
+                <th>Datum prijave</th>
+            </tr>
+
+            </thead>
+            <tbody>
+            {% if apps|length == 0 %}
+                <tr>
+                    <td align="center" colspan="3">Nema prijava</td>
+                </tr>
+
+            {% else %}
+                {% for app in apps %}
+                    <tr>
+                        <td>{{ app['pub-title'] }}</td>
+                        <td>{{ app['applicant'] }}</td>
+                        <td>{{ app['input-timestamp'] }}</td>
+                        <td><a href="/user/applications/view?id={{ app['_id'] }}">Pogledaj</a></td>
+                        <td><a href="/user/applications/edit?id={{ app['_id'] }}">Uredi</a></td>
+                        <td><a href="/user/applications/delete?id={{ app['_id'] }}">Obriši</a></td>
+
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+
+        </table>
+
+    </div>
+{% endblock %}
+

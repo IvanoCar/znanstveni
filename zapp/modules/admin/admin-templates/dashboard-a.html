@@ -1,0 +1,80 @@
+{% extends "layout-a.html" %}
+{{ super() }}
+
+{% block title %}Dashboard{% endblock %}
+{% block titleheader %}Početna{% endblock %}
+{% block username %}{{ username }}{% endblock %}
+
+
+{% block rowSpace1 %}
+
+    <div class="row" id="counters">
+        <div class="col-md-3">
+            <div class="custom-card">
+                <div class="title-container">
+                    <h6>Broj prijava</h6>
+                </div>
+                <div class="card-body">
+                    <h4>{{ appNo }}</h4>
+                </div>
+            </div>
+            <a href="/admin/applications" class="btn btn-block btn-primary">Pogledaj</a>
+        </div>
+
+        <div class="col-md-3">
+            <div class="custom-card">
+                <div class="title-container">
+                    <h6>Broj evaluator računa</h6>
+                </div>
+                <div class="card-body">
+                    <h4>{{ modNo }}</h4>
+                </div>
+            </div>
+            <a href="/admin/moderators" class="btn btn-block btn-primary">Pogledaj</a>
+
+        </div>
+
+        <div class="col-md-3">
+            <div class="custom-card">
+                <div class="title-container">
+                    <h6>Broj nedodijeljenih prijava</h6>
+                </div>
+                <div class="card-body">
+                    <h4>{{ notAssignedApps }}</h4>
+                </div>
+            </div>
+            <a href="/admin/applications?criteria=not-assigned" class="btn btn-block btn-primary">Pogledaj</a>
+
+        </div>
+
+        <div class="col-md-3">
+            <div class="custom-card">
+                <div class="title-container">
+                    <h6>Broj neocjenjenih prijava</h6>
+                </div>
+                <div class="card-body">
+                    <h4>{{ appsNotGraded }}</h4>
+                </div>
+            </div>
+            <a href="/admin/applications?criteria=not-graded" class="btn btn-block btn-primary">Pogledaj</a>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block  rowSpace2 %}
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-md-4"></div>
+
+        <div class="col-md-4" align="center">
+            <h5>Prijave su otvorene</h5>
+            <a class="btn btn-block btn-primary" href="#">Zatvori prijave</a>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+{% endblock %}
+
